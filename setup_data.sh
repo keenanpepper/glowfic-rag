@@ -17,22 +17,22 @@ echo "Downloading pre-built vector database from GitHub Release..."
 echo "  repo: $REPO  tag: $TAG"
 
 if command -v gh &>/dev/null; then
-    gh release download "$TAG" --repo "$REPO" --dir "$DATA_DIR" --pattern "*.tar.gz"
+    gh release download "$TAG" --repo "$REPO" --dir "$DATA_DIR" --pattern "*.tar.gz.part-*"
 else
     echo "gh CLI not found, falling back to curl..."
     URLS=$(curl -sL "https://api.github.com/repos/$REPO/releases/tags/$TAG" \
-        | python3 -c "import sys,json; [print(a['browser_download_url']) for a in json.load(sys.stdin)['assets'] if a['name'].endswith('.tar.gz')]")
+        | python3 -c "import sys,json; [print(a['browser_download_url']) for a in json.load(sys.stdin)['assets'] if 'tar.gz' in a['name']]")
     for url in $URLS; do
         echo "  Downloading $(basename "$url")..."
         curl -L -o "$DATA_DIR/$(basename "$url")" "$url"
     done
 fi
 
-echo "Extracting..."
-for f in "$DATA_DIR"/*.tar.gz; do
-    tar xzf "$f" -C "$DATA_DIR"
-    rm "$f"
-done
+echo "Reassembling and extracting..."
+cat "$DATA_DIR"/glowfic-chroma.tar.gz.part-* > "$DATA_DIR/glowfic-chroma.tar.gz"
+rm "$DATA_DIR"/glowfic-chroma.tar.gz.part-*
+tar xzf "$DATA_DIR/glowfic-chroma.tar.gz" -C "$DATA_DIR"
+rm "$DATA_DIR/glowfic-chroma.tar.gz"
 
 echo ""
 echo "Verifying..."
