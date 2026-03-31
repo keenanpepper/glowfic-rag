@@ -12,6 +12,8 @@ Board structure fetching is based on [rocurley/glowfic-dl](https://github.com/ro
 
 ## Quick start
 
+Requires **Python 3.10+** (the `mcp` package needs it).
+
 ```bash
 git clone https://github.com/keenanpepper/glowfic-rag.git
 cd glowfic-rag

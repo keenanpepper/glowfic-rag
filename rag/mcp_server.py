@@ -32,13 +32,22 @@ class GTEEmbeddingFunction(chromadb.EmbeddingFunction):
         return embeddings.tolist()
 
 
+if not CHROMA_DIR.exists():
+    print(f"ERROR: {CHROMA_DIR} not found. Run ./setup_data.sh first.", file=sys.stderr)
+    sys.exit(1)
+
 print("Loading embedding model...", file=sys.stderr)
 device = get_device()
 print(f"Using device: {device}", file=sys.stderr)
 _model = SentenceTransformer(MODEL_NAME, device=device)
 _embed_fn = GTEEmbeddingFunction(_model)
 _client = chromadb.PersistentClient(path=str(CHROMA_DIR))
-_collection = _client.get_collection(name=COLLECTION_NAME, embedding_function=_embed_fn)
+try:
+    _collection = _client.get_collection(name=COLLECTION_NAME, embedding_function=_embed_fn)
+except Exception as e:
+    print(f"ERROR: Could not load collection '{COLLECTION_NAME}': {e}", file=sys.stderr)
+    print("Run ./setup_data.sh to download the pre-built database.", file=sys.stderr)
+    sys.exit(1)
 print(f"Ready. Collection has {_collection.count()} documents.", file=sys.stderr)
 
 mcp = FastMCP("glowfic-search")
