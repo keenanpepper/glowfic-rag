@@ -1,3 +1,8 @@
+"""Authentication helpers for glowfic.com.
+
+From rocurley/glowfic-dl by Roger Curley and Alyssa Riceman.
+"""
+
 import aiohttp
 import os
 import asyncio

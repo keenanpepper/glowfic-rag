@@ -8,7 +8,7 @@ Uses [GTE-Large](https://huggingface.co/thenlper/gte-large) embeddings stored in
 - **Sandboxes** (board 3) — 639K posts, 2,214 threads
 - **trainwreck** (board 277) — 595 posts, 7 threads
 
-Board structure fetching is based on [rocurley/glowfic-dl](https://github.com/rocurley/glowfic-dl).
+Board structure fetching (`src/render.py`, `src/auth.py`) is derived from [rocurley/glowfic-dl](https://github.com/rocurley/glowfic-dl) by [Roger Curley](https://github.com/rocurley) and [Alyssa Riceman](https://github.com/LunarTulip).
 
 ## Quick start
 
