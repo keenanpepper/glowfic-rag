@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "glowfic-search": {
+      "command": ".venv/bin/python3",
+      "args": ["-m", "rag.mcp_server"]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+data/
+.venv/
+.env
+*.epub
+__pycache__/
+*.pyc
+creds.json
+.cursor/mcp.json
