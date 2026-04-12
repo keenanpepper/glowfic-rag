@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "glowfic-rag": {
+      "command": "/PATH/TO/glowfic-rag/.venv/bin/python",
+      "args": [
+        "-m",
+        "rag.mcp_server"
+      ],
+      "env": {
+        "PYTHONPATH": "/PATH/TO/glowfic-rag"
+      }
+    }
+  },
+  "preferences": {
+    ...
+  }
+}
